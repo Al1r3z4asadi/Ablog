@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^l^rcyi@h7amt)=@8bcj*)sgmk^(18z%zcwx0)w$provfu6q=^'
+SECRET_KEY = '^l^rcyi@h7amt)=@8bcj*)sgmk^(18z%zcwx0)w$provfu6q=^'   
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -74,10 +75,17 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# print("this shit is about to get heavy fuck you damet")
+# print(os.environ.get("postgres_user"))
+# print(os.environ.get("postgres_pass"))
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgre',
+        'USER': os.environ.get('postgres_user'),
+        'PASSWORD':os.environ.get('postgres_pass'),
+        'HOST':'localhost',
+        'port':'5432',
     }
 }
 
