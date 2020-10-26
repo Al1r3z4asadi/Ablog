@@ -1,0 +1,24 @@
+{%load static%}
+
+{% for article in articles_data %}
+    <article class="col-block">
+        <div class="item-entry" data-aos="zoom-in">
+            <div class="item-entry__thumb">
+                <a href="single-standard.html" class="item-entry__thumb-link">
+                    <img src="{{article.cover}}">
+                </a>
+            </div>
+
+            <div class="item-entry__text">
+                <div class="item-entry__cat">
+                    <a href="category.html">{{article.category}}</a>
+                </div>
+                <h1 class="item-entry__title"><a href="single-standard.html">{{article.title}}</a></h1>
+                <div class="item-entry__date">
+                    <a href="single-standard.html">{{article.created_at}}</a>
+                </div>
+            </div>
+        </div> <!-- item-entry -->
+
+    </article> <!-- end article -->
+{% endfor %}
