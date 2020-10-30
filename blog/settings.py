@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'app_blog.apps.AppBlogConfig',
     'users.apps.UsersConfig',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +94,20 @@ DATABASES = {
 }
 
 
+
+DJOSER = {
+    'LOGIN_FIELD' : 'email',
+   
+    'USER_CREATE_PASSWORD_RETYPE' : True , 
+    'SERIALIZERS':{
+        'user_create': 'users.serializers.UserCreateSerializer',
+        'user': 'users.serializers.UserSerializer',
+
+    }
+    
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -131,3 +147,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 MEDIA_URL = '/media/'
+
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}

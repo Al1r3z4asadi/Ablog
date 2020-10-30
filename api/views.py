@@ -2,16 +2,41 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from app_blog.models import *
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from .serializers import SingleArticleSerializer
 from django.db.models import Q
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
 
-class AllArticlesAPIView(APIView):
 
+# get users
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class AllArticlesAPIView(APIView):
+    
+    permission_classes = [permissions.AllowAny]
+    @method_decorator(cache_page(60*10))
     def get(self , request , format=None):
         try:
+            print("printing the request.user and fuck you idiot hehe")
+            print(request.user)
+            print("printing the request.auth and fuck you u fucking moran")
+            print(request.auth)
             all_articles = Article.objects.all().order_by('-created_at')
             data = []
           
@@ -35,6 +60,8 @@ class AllArticlesAPIView(APIView):
 
 
 class SingleArticleAPIView(APIView):
+
+    permission_classes = [permissions.AllowAny]    
     def get(self , request , format=None):
 
         try:
@@ -52,6 +79,8 @@ class SingleArticleAPIView(APIView):
 
 class SearchArticleAPIView(APIView):
     
+    permission_classes = [permissions.AllowAny]
+    @method_decorator(cache_page(60*10))
     def get(self , request , format=None):
 
         try:
@@ -64,6 +93,16 @@ class SearchArticleAPIView(APIView):
             return Response({'Error' :status.HTTP_500_INTERNAL_SERVER_ERROR})
 
 
+
+
+# class SubmitArticleAPIView(APIView):
+
+#     def post(self , request , format=None):
+
+#         try:
+#             pass
+#         except expression as identifier:
+#             pass
 
 
 
