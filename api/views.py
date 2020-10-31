@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from app_blog.models import *
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from .serializers import SingleArticleSerializer
+from .serializers import SingleArticleSerializer , SumbitArticleSerializer
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -12,20 +12,6 @@ from django.views.decorators.cache import cache_page
 
 
 # get users
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class AllArticlesAPIView(APIView):
     
@@ -95,16 +81,37 @@ class SearchArticleAPIView(APIView):
 
 
 
-# class SubmitArticleAPIView(APIView):
+class SubmitArticleAPIView(APIView):
+    
+    
+    def post(self , request , format=None):
+        try:
+            print("request.data is " , request.data)
+            serializer = SumbitArticleSerializer(data=request.data)
+            print("is serializer valid " , serializer.is_valid())
+            if serializer.is_valid():                
+                title = serializer.data.get('title')
+                content = serializer.data.get('content')
+                category_id = serializer.data.get('category_id')
+                author_id = serializer.data.get('author_id')
+            else:
+                return Response({'Error' :status.HTTP_400_BAD_REQUEST})
 
-#     def post(self , request , format=None):
+            user = User.objects.get(id=author_id)
+            category = Category.objects.get(id=category_id)
 
-#         try:
-#             pass
-#         except expression as identifier:
-#             pass
+            article = Article()
+            article.title = title
+            article.content = content
+            article.category =  category
+            article.author = user
 
+            article.save()
 
+            return Response({'status':'OK'} , status=status.HTTP_200_OK)
+
+        except expression as identifier:
+            return Response({'Error' :status.HTTP_500_INTERNAL_SERVER_ERROR})
 
 
 
