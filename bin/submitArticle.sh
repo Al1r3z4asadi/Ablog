@@ -9,7 +9,7 @@ read category
 echo enter author id
 read author
 echo enter your token please
-read -S token
+read token
 
 
 
