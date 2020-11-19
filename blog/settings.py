@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '^l^rcyi@h7amt)=@8bcj*)sgmk^(18z%zcwx0)w$provfu6q=^'   
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True    
 
 ALLOWED_HOSTS = []
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_blog.apps.AppBlogConfig',
     'users.apps.UsersConfig',
+    'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
@@ -159,3 +160,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+
+#crispy_form pack useage 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
